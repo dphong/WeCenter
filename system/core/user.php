@@ -20,14 +20,14 @@ class core_user
 		/*if (AWS_APP::session()->client_info AND ! $_COOKIE[G_COOKIE_PREFIX . '_user_login'])
 		{
 			// Cookie 清除则 Session 也清除
-			unset(AWS_APP::session()->client_info);
-		}*/
+            unset(AWS_APP::session()->client_info);
+        }*/
 
-		if (! AWS_APP::session()->client_info AND $_COOKIE[G_COOKIE_PREFIX . '_user_login'])
-		{
-			$auth_hash_key = md5(G_COOKIE_HASH_KEY . $_SERVER['HTTP_USER_AGENT']);
+        if (! AWS_APP::session()->client_info AND $_COOKIE[G_COOKIE_PREFIX . '_user_login'])
+        {
+            $auth_hash_key = md5(G_COOKIE_HASH_KEY . $_SERVER['HTTP_USER_AGENT']);
 
-			// 解码 Cookie
+            // 解码 Cookie
 			$sso_user_login = json_decode(AWS_APP::crypt()->decode($_COOKIE[G_COOKIE_PREFIX . '_user_login'], $auth_hash_key), true);
 
 			if ($sso_user_login['user_name'] AND $sso_user_login['password'] AND $sso_user_login['uid'])

@@ -21,12 +21,13 @@ class main extends AWS_CONTROLLER
 {
 	public function get_access_rule()
 	{
+        //white:actions里的action全部用户可见，其余action需要登录
+        //black:actions里的action需要登录，其余action全部用户可见
 		$rule_action['rule_type'] = 'black';
 
 		$rule_action['actions'] = array(
 			'complete_profile'
 		);
-
 		return $rule_action;
 	}
 

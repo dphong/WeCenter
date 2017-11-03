@@ -22,7 +22,11 @@ define('G_COOKIE_PREFIX','{G_COOKIE_PREFIX}');
 define('G_SECUKEY','{G_SECUKEY}');
 define('G_COOKIE_HASH_KEY', '{G_COOKIE_HASH_KEY}');
 
-define('G_INDEX_SCRIPT', '?/');
+/**
+ * whark 2017.10.30
+ * define('G_INDEX_SCRIPT', '?/');
+ */
+define('G_INDEX_SCRIPT', '');
 
 define('X_UA_COMPATIBLE', 'IE=edge,Chrome=1');
 

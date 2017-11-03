@@ -242,7 +242,7 @@ class AWS_APP
 	 * @access	public
 	 * @param	array
 	 * @param	integer
-	 * @return	string
+	 * @return	array
 	 */
 	public static function RSM($rsm, $errno = 0, $err = '')
 	{

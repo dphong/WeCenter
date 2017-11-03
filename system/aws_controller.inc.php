@@ -187,15 +187,16 @@ class AWS_CONTROLLER
 		return AWS_APP::model($model);
 	}
 
-	/**
-	 * 产生面包屑导航数据
-	 *
-	 * 产生面包屑导航数据并生成浏览器标题供前端使用
-	 *
-	 * @access	public
-	 * @param	string
-	 * @param	string
-	 */
+    /**
+     * 产生面包屑导航数据
+     *
+     * 产生面包屑导航数据并生成浏览器标题供前端使用
+     *
+     * @access    public
+     * @param    string
+     * @param    string
+     * @return $this
+     */
 	public function crumb($name, $url = null)
 	{
 		if (is_array($name))

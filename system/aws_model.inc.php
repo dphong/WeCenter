@@ -214,16 +214,20 @@ class AWS_MODEL
 		return $last_insert_id;
 	}
 
-	/**
-	 * 更新数据
-	 *
-	 * 面向对象数据库操作, 表名无需加表前缀, 数据也无需使用 $this->quote 进行过滤 ($where 条件除外)
-	 *
-	 * @param	string
-	 * @param	array
-	 * @param	string
-	 * @return	int
-	 */
+    /**
+     * 更新数据
+     *
+     * 面向对象数据库操作, 表名无需加表前缀, 数据也无需使用 $this->quote 进行过滤 ($where 条件除外)
+     *
+     * @param $table
+     * @param $data
+     * @param string $where
+     * @return int
+     * @throws Zend_Exception
+     * @internal param $string
+     * @internal param $array
+     * @internal param $string
+     */
 	public function update($table, $data, $where = '')
 	{
 		$this->master();

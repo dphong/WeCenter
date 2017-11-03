@@ -44,6 +44,7 @@ class setting extends AWS_CONTROLLER
 	{
 		$this->crumb(AWS_APP::lang()->_t('基本资料'), '/account/setting/profile/');
 
+		//生成生日年份数组
 		for ($i = date('Y'); $i > 1900; $i--)
 		{
 			$birthday_y[$i] = $i;

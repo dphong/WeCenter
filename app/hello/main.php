@@ -10,6 +10,7 @@ if (!defined('IN_ANWSION'))
 {
     die;
 }
+
 class main extends AWS_CONTROLLER
 {
     public function get_access_rule()
