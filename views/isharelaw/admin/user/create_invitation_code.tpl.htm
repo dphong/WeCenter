@@ -1,0 +1,19 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+	<form action="admin/ajax/create_invitation_code/" id="settings_form" method="post" onsubmit="return false">
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<span class="pull-left"><?php _e('生成邀请码'); ?></span>
+			</h3>
+		</div>
+		<div class="tab-content mod-content">
+			<input type="button" value="<?php _e('点击生成'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#settings_form'));" />
+		</div>
+	</div>
+	</form>
+</div>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

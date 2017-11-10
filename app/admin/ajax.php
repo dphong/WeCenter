@@ -2181,4 +2181,15 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
+
+    public function create_invitation_code_action()
+    {
+
+        //$this->model('invitation')->send_batch_invitations(array_unique($email_list), $this->user_id, $this->user_info['user_name']);
+
+        $msg = $this->model('invitation')->create_invitation_code($this->user_id, $this->user_info['phone']);
+        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t($msg)));
+    }
 }
+
+

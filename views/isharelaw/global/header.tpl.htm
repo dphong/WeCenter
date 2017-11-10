@@ -111,7 +111,7 @@
 					</div>
 				<?php } else { ?>
 					<a class="login btn btn-normal btn-primary" href="account/login/"><?php _e('登录'); ?></a>
-					<?php if (get_setting('register_type') == 'open') { ?><a class="register btn btn-normal btn-success" href="account/register/"><?php _e('注册'); ?></a><?php } ?>
+					<?php if (get_setting('register_type') != 'close') { ?><a class="register btn btn-normal btn-success" href="account/register/"><?php _e('注册'); ?></a><?php } ?>
 				<?php } ?>
 				<!-- end 登陆&注册栏 -->
 			</div>

@@ -45,7 +45,7 @@ class core_uri
 
 		if (G_INDEX_SCRIPT == '')
 		{
-			$this->index_script = '';
+			$this->index_script = '/';
 		}
 		else
 		{

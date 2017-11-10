@@ -113,6 +113,12 @@ $config[] = array(
         ),
 
         array(
+            'id' => 404,
+            'title' => AWS_APP::lang()->_t('生成邀请码'),
+            'url' => 'admin/user/create_invitation_code/'
+        ),
+
+        array(
             'id' => 406,
             'title' => AWS_APP::lang()->_t('批量邀请'),
             'url' => 'admin/user/invites/'

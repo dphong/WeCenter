@@ -160,7 +160,7 @@ class main extends AWS_CONTROLLER
 				HTTP::redirect('/account/weixin_login/command-REGISTER');
 			}
 
-			H::redirect_msg(AWS_APP::lang()->_t('本站只接受邀请注册'), '/');
+			//H::redirect_msg(AWS_APP::lang()->_t('本站只接受邀请注册'), '/');
 		}
 		else if (get_setting('register_type') == 'weixin')
 		{

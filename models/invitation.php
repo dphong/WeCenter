@@ -34,14 +34,14 @@ class invitation_class extends AWS_MODEL
 		}
 	}
 
-	public function add_invitation($uid, $invitation_code, $invitation_email, $add_time, $add_ip)
+	public function add_invitation($uid, $invitation_code, $invitation_phone, $add_time, $add_ip)
 	{
 		$this->query("UPDATE " . $this->get_table('users') . " SET invitation_available = invitation_available - 1 WHERE uid = " . intval($uid));
 
 		return $this->insert('invitation', array(
 			'uid' => intval($uid),
 			'invitation_code' => $invitation_code,
-			'invitation_email' => $invitation_email,
+			'invitation_phone' => $invitation_phone,
 			'add_time' => $add_time,
 			'add_ip' => $add_ip
 		));
@@ -135,5 +135,14 @@ class invitation_class extends AWS_MODEL
 		}
 
 		return true;
-	}
+    }
+
+    public function create_invitation_code($uid, $invitation_phone)
+    {
+        $invitation_code = $this->get_unique_invitation_code();
+        $this->model('invitation')->add_invitation($uid, $invitation_code, $invitation_phone, time(), ip2long($_SERVER['REMOTE_ADDR']));
+        //TODO: 发送邀请短信
+
+        return $invitation_code;
+    }
 }

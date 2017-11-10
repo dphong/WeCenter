@@ -230,6 +230,14 @@ class user extends AWS_ADMIN_CONTROLLER
         TPL::output('admin/user/invites');
     }
 
+    public function create_invitation_code_action()
+    {
+        $this->crumb(AWS_APP::lang()->_t('生成邀请码'), "admin/user/create_invitation_code/");
+
+        TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(406));
+        TPL::output('admin/user/create_invitation_code');
+    }
+
     public function job_list_action()
     {
         TPL::assign('job_list', $this->model('work')->get_jobs_list());
