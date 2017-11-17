@@ -92,40 +92,54 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站只能通过微信注册')));
 		}
 
-		if ($_POST['icode'])
-		{
-			if (!$invitation = $this->model('invitation')->check_code_available($_POST['icode']) AND $_POST['email'] == $invitation['invitation_email'])
-			{
-				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('邀请码无效或与邀请邮箱不一致')));
-			}
-		}
-
 		if (trim($_POST['user_name']) == '')
 		{
-			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入用户名')));
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入手机号')));
 		}
 		else if ($this->model('account')->check_username($_POST['user_name']))
 		{
-			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('用户名已经存在')));
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('此手机号已注册')));
 		}
-		else if ($check_rs = $this->model('account')->check_username_char($_POST['user_name']))
+		else if ($this->model('account')->check_username_char($_POST['user_name']))
 		{
-			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('用户名包含无效字符')));
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('手机号格式错误')));
 		}
-		else if ($this->model('account')->check_username_sensitive_words($_POST['user_name']) OR trim($_POST['user_name']) != $_POST['user_name'])
+		/*else if ($this->model('account')->check_username_sensitive_words($_POST['user_name']) OR trim($_POST['user_name']) != $_POST['user_name'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('用户名中包含敏感词或系统保留字')));
-		}
+		}*/
 
-		if ($this->model('account')->check_email($_POST['email']))
+		/*if ($this->model('account')->check_email($_POST['email']))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('E-Mail 已经被使用, 或格式不正确')));
-		}
+		}*/
 
-		if (strlen($_POST['password']) < 6 OR strlen($_POST['password']) > 16)
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('密码长度不符合规则')));
-		}
+        if (trim($_POST['sms_code']) == '') {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入验证码')));
+        } else if ($this->model('account')->check_sms_code($_POST['sms_code']))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('验证码不正确')));
+        }
+
+        if (strlen($_POST['password']) < 6 OR strlen($_POST['password']) > 16)
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('密码长度不符合规则')));
+        }
+
+        if (trim($_POST['real_name']) == '') {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入姓名')));
+        } else if ($this->model('account')->check_real_name($_POST['real_name']))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('姓名格式不正确')));
+        }
+
+        if ($_POST['icode'])
+        {
+            if (!$invitation = $this->model('invitation')->check_code_available($_POST['icode']) AND $_POST['user_name'] == $invitation['invitation_phone'])
+            {
+                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('邀请码无效或与邀请手机号不一致')));
+            }
+        }
 
 		if (! $_POST['agreement_chk'])
 		{
@@ -133,10 +147,10 @@ class ajax extends AWS_CONTROLLER
 		}
 
 		// 检查验证码
-		if (!AWS_APP::captcha()->is_validate($_POST['seccode_verify']) AND get_setting('register_seccode') == 'Y')
+		/*if (!AWS_APP::captcha()->is_validate($_POST['seccode_verify']) AND get_setting('register_seccode') == 'Y')
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请填写正确的验证码')));
-		}
+		}*/
 
 		if (get_setting('ucenter_enabled') == 'Y')
 		{
@@ -153,13 +167,15 @@ class ajax extends AWS_CONTROLLER
 		}
 		else
 		{
-			$uid = $this->model('account')->user_register($_POST['user_name'], $_POST['password'], $_POST['email']);
+		    $inviter_id = $this->model('invitation')->
+			$uid = $this->model('account')->user_register($_POST['user_name'], $_POST['password'], $_POST['real_name']);
 		}
 
 
 		if ($_POST['email'] == $invitation['invitation_email'])
 		{
-			$this->model('active')->set_user_email_valid_by_uid($uid);
+		    //发送邮箱验证
+			//$this->model('active')->set_user_email_valid_by_uid($uid);
 
 			$this->model('active')->active_user_by_uid($uid);
 		}

@@ -332,7 +332,7 @@ abstract class Zend_Pdf_FileParser
     /**
      * Returns true if the specified bit is set in the integer bitfield.
      *
-     * @param integer $bit Bit number to test (i.e. - 0-31)
+     * @param integer $bit Bit number to main (i.e. - 0-31)
      * @param integer $bitField
      * @return boolean
      */

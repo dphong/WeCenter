@@ -667,7 +667,7 @@ function is_really_writable($file)
 	{
 		$file = rtrim($file, '/') . '/is_really_writable_' . md5(rand(1, 100));
 
-		if (! @file_put_contents($file, 'is_really_writable() test file'))
+		if (! @file_put_contents($file, 'is_really_writable() main file'))
 		{
 			return FALSE;
 		}
@@ -700,6 +700,26 @@ function fetch_salt($length = 4)
 	}
 
 	return $salt;
+}
+
+/**
+ * 生成数字字母组合密码种子
+ *
+ * @param  integer
+ * @return string
+ */
+function fetch_salt_n($length = 4)
+{
+    $salt = "";
+    for ($i = 0; $i < $length; $i++)
+    {
+        $number = rand(87, 122);
+        if($number < 97)
+            $salt .= $number - 87;
+        else
+            $salt .= chr($number);
+    }
+    return $salt;
 }
 
 /**

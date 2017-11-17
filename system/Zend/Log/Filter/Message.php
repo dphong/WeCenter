@@ -41,7 +41,7 @@ class Zend_Log_Filter_Message extends Zend_Log_Filter_Abstract
     /**
      * Filter out any log messages not matching $regexp.
      *
-     * @param  string  $regexp     Regular expression to test the log message
+     * @param  string  $regexp     Regular expression to main the log message
      * @return void
      * @throws Zend_Log_Exception
      */

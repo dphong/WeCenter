@@ -26,7 +26,7 @@ define('G_COOKIE_HASH_KEY', '{G_COOKIE_HASH_KEY}');
  * whark 2017.10.30
  * define('G_INDEX_SCRIPT', '?/');
  */
-define('G_INDEX_SCRIPT', '');
+define('G_INDEX_SCRIPT', '/');
 
 define('X_UA_COMPATIBLE', 'IE=edge,Chrome=1');
 

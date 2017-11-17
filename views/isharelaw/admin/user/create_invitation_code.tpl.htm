@@ -10,7 +10,33 @@
 			</h3>
 		</div>
 		<div class="tab-content mod-content">
-			<input type="button" value="<?php _e('点击生成'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#settings_form'));" />
+
+			<table class="table table-striped">
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('手机号码'); ?>:</span>
+							<div class="col-sm-5 col-xs-8">
+								<textarea class="form-control textarea" name="phone" rows="1"></textarea>
+
+								<span class="help-block"><?php _e('请输入手机号码'); ?></span>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tfoot>
+				<tr>
+					<td>
+						<input type="button" value="<?php _e('点击生成'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#settings_form'));" />
+					</td>
+				</tr>
+				</tfoot>
+			</table>
+			<ul>
+				<li class="alert alert-danger collapse error_message text-left">
+					<i class="icon icon-delete"></i> <em></em>
+				</li>
+			</ul>
 		</div>
 	</div>
 	</form>

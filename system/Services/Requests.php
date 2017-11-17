@@ -167,7 +167,7 @@ class Requests {
 			if (!class_exists($class))
 				continue;
 
-			$result = call_user_func(array($class, 'test'));
+			$result = call_user_func(array($class, 'main'));
 			if ($result) {
 				self::$transport = $class;
 				break;

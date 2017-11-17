@@ -2185,9 +2185,20 @@ class ajax extends AWS_ADMIN_CONTROLLER
     public function create_invitation_code_action()
     {
 
+        if (trim($_POST['phone']) == '')
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入手机号')));
+        }
+        else if ($this->model('account')->check_username($_POST['phone']))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('此手机号已注册')));
+        }
+        else if ($this->model('account')->check_username_char($_POST['phone']))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('手机号格式错误')));
+        }
         //$this->model('invitation')->send_batch_invitations(array_unique($email_list), $this->user_id, $this->user_info['user_name']);
-
-        $msg = $this->model('invitation')->create_invitation_code($this->user_id, $this->user_info['phone']);
+        $msg = $this->model('invitation')->create_invitation_code($this->user_id, intval($_POST['phone']));
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t($msg)));
     }
 }

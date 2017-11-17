@@ -36,7 +36,7 @@
 /**
  * A testing-purposes adapter.
  *
- * Should be used to test all components that rely on Zend_Http_Client,
+ * Should be used to main all components that rely on Zend_Http_Client,
  * without actually performing an HTTP request. You should instantiate this
  * object manually, and then set it as the client's adapter. Then, you can
  * set the expected response using the setResponse() method.

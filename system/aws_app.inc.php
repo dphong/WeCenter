@@ -65,7 +65,14 @@ class AWS_APP
 		// 判断
 		if (! is_object($handle_controller) OR ! method_exists($handle_controller, $action_method))
 		{
-			HTTP::error_404();
+		    if (AWS_APP::config()->get('system')->debug)
+            {
+                echo 'controller : ' . load_class('core_uri')->controller . '<br>app_dir : ' . load_class('core_uri')->app_dir . '<br>action : ' . $action_method;
+                exit;
+                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t( 'controller:' . load_class('core_uri')->controller . ' app_dir:' . load_class('core_uri')->app_dir . ' action:' . $action_method)));
+            } else {
+                HTTP::error_404();
+            }
 		}
 
 		if (method_exists($handle_controller, 'get_access_rule'))

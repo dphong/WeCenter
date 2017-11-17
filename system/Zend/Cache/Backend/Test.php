@@ -92,7 +92,7 @@ class Zend_Cache_Backend_Test extends Zend_Cache_Backend implements Zend_Cache_B
     /**
      * Test if a cache is available for the given id and (if yes) return it (false else)
      *
-     * For this test backend only, if $id == 'false', then the method will return false
+     * For this main backend only, if $id == 'false', then the method will return false
      * if $id == 'serialized', the method will return a serialized array
      * ('foo' else)
      *
@@ -134,7 +134,7 @@ class Zend_Cache_Backend_Test extends Zend_Cache_Backend implements Zend_Cache_B
     /**
      * Test if a cache is available or not (for the given id)
      *
-     * For this test backend only, if $id == 'false', then the method will return false
+     * For this main backend only, if $id == 'false', then the method will return false
      * (123456 else)
      *
      * @param  string $id Cache id
@@ -142,7 +142,7 @@ class Zend_Cache_Backend_Test extends Zend_Cache_Backend implements Zend_Cache_B
      */
     public function test($id)
     {
-        $this->_addLog('test', array($id));
+        $this->_addLog('main', array($id));
         if ($id=='false') {
             return false;
         }
@@ -155,7 +155,7 @@ class Zend_Cache_Backend_Test extends Zend_Cache_Backend implements Zend_Cache_B
     /**
      * Save some string datas into a cache record
      *
-     * For this test backend only, if $id == 'false', then the method will return false
+     * For this main backend only, if $id == 'false', then the method will return false
      * (true else)
      *
      * @param  string $data             Datas to cache
@@ -176,7 +176,7 @@ class Zend_Cache_Backend_Test extends Zend_Cache_Backend implements Zend_Cache_B
     /**
      * Remove a cache record
      *
-     * For this test backend only, if $id == 'false', then the method will return false
+     * For this main backend only, if $id == 'false', then the method will return false
      * (true else)
      *
      * @param  string $id Cache id
@@ -194,7 +194,7 @@ class Zend_Cache_Backend_Test extends Zend_Cache_Backend implements Zend_Cache_B
     /**
      * Clean some cache records
      *
-     * For this test backend only, if $mode == 'false', then the method will return false
+     * For this main backend only, if $mode == 'false', then the method will return false
      * (true else)
      *
      * Available modes are :

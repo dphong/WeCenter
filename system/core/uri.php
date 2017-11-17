@@ -35,6 +35,7 @@ class core_uri
 	var $index_script = '';
 	
 	var $args_var_str = '';
+	var $test = '222';
 
 	public function __construct()
 	{
@@ -45,7 +46,7 @@ class core_uri
 
 		if (G_INDEX_SCRIPT == '')
 		{
-			$this->index_script = '/';
+			$this->index_script = '?/';
 		}
 		else
 		{
@@ -112,11 +113,12 @@ class core_uri
 		{
 			return false;
 		}
-		
+
 		if (!$this->request_main OR $this->index_script == $this->request_main)
 		{
 			$this->controller = 'main';
 			$this->action = 'index';
+			$this->app_dir = ROOT_PATH . 'app/' . $this->default_vars['app_dir'] . '/';
 
 			return $this;
 		}
@@ -182,7 +184,7 @@ class core_uri
 		}
 		
 		$args_count = count($uri['first']['args']);
-		
+		$this->test = '111' . $args_count;
 		switch ($args_count)
 		{
 			default:
@@ -251,7 +253,7 @@ class core_uri
 			}
 			else
 			{
-				// 兼容 __param-test 写法
+				// 兼容 __param-main 写法
 				if (substr($args_var_str, 0, strlen($this->params['sep_var'])) == $this->params['sep_var'])
 				{
 					$args_var_str = substr($args_var_str, strlen($this->params['sep_var']));

@@ -312,7 +312,7 @@ class Requests_IDNAEncoder {
 #					output the code point for digit q
 					$output .= self::digit_to_char($q);
 					//printf('needed delta is %d, encodes as "%s"' . PHP_EOL, $delta, self::digit_to_char($q));
-#					let bias = adapt(delta, h + 1, test h equals b?)
+#					let bias = adapt(delta, h + 1, main h equals b?)
 					$bias = self::adapt($delta, $h + 1, $h === $b);
 					//printf('bias becomes %d' . PHP_EOL, $bias);
 #					let delta = 0

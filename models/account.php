@@ -93,6 +93,32 @@ class account_class extends AWS_MODEL
     }
 
     /**
+     * 检查真实姓名是否合法
+     *
+     * @param string
+     * @return boolean
+     */
+    public function check_real_name($real_name)
+    {
+        ///[\u4e00-\u9fa5]+(·[\u4e00-\u9fa5]+)*/
+        return ( preg_match("/^([\xe4-\xe9][\x80-\xbf]{2}){2,5}(·(([\xe4-\xe9][\x80-\xbf]){2})+)*$/", $real_name)) ? FALSE : TRUE;
+    }
+
+    /**
+     * 检查验证码是否正确
+     *
+     * @param string
+     * @return boolean
+     */
+    public function check_sms_code($sms_code)
+    {
+        ///[\u4e00-\u9fa5]+(·[\u4e00-\u9fa5]+)*/
+        //TODO:与验证码发送相对应
+        //6位数字校验
+        return ( preg_match("/^\d{6}$/", $sms_code)) ? FALSE : TRUE;
+    }
+
+    /**
      * 检查电子邮件地址是否已经存在
      *
      * @param string
@@ -503,7 +529,7 @@ class account_class extends AWS_MODEL
      * @param string
      * @return int
      */
-    public function insert_user($user_name, $password, $email = null, $sex = 0, $mobile = null)
+    public function insert_user($user_name, $password, $real_name = null, $inviter = null, $email = null, $sex = 0 )
     {
         if (!$user_name OR !$password)
         {
@@ -528,7 +554,8 @@ class account_class extends AWS_MODEL
             'salt' => $salt,
             'email' => htmlspecialchars($email),
             'sex' => intval($sex),
-            'mobile' => htmlspecialchars($mobile),
+            //'mobile' => htmlspecialchars($mobile),
+            'real_name' => $real_name,
             'reg_time' => time(),
             'reg_ip' => ip2long(fetch_ip()),
             'email_settings' => serialize(get_setting('new_user_email_setting'))
@@ -557,6 +584,46 @@ class account_class extends AWS_MODEL
     public function user_register($user_name, $password = null, $email = null)
     {
         if ($uid = $this->insert_user($user_name, $password, $email))
+        {
+            if ($def_focus_uids_str = get_setting('def_focus_uids'))
+            {
+                $def_focus_uids = explode(',', $def_focus_uids_str);
+
+                foreach ($def_focus_uids as $key => $val)
+                {
+                    $this->model('follow')->user_follow_add($uid, $val);
+                }
+            }
+
+            $this->update('users', array(
+                'group_id' => 3,
+                'reputation_group' => 5,
+                'invitation_available' => get_setting('newer_invitation_num'),
+                'is_first_login' => 1
+            ), 'uid = ' . intval($uid));
+
+            $this->model('integral')->process($uid, 'REGISTER', get_setting('integral_system_config_register'), '初始资本');
+        }
+
+        return $uid;
+    }
+
+    /**
+     * 自定义注册用户
+     *
+     * @param $user_name
+     * @param null $password
+     * @param $real_name
+     * @param null $inviter
+     * @return int
+     * @internal param null $email
+     * @internal param $string
+     * @internal param $string
+     * @internal param $string
+     */
+    public function user_register_i($user_name, $password = null, $real_name = null, $inviter = null)
+    {
+        if ($uid = $this->insert_user($user_name, $password, $real_name, $inviter))
         {
             if ($def_focus_uids_str = get_setting('def_focus_uids'))
             {
@@ -803,7 +870,7 @@ class account_class extends AWS_MODEL
         }
     }
 
-    public function check_username_char($user_name)
+    /*public function check_username_char($user_name)
     {
         if (is_digits($user_name))
         {
@@ -854,6 +921,20 @@ class account_class extends AWS_MODEL
         }
 
         return false;
+    }*/
+
+    public function check_username_char($user_name)
+    {
+        if (is_digits($user_name)) {
+            if ( preg_match("/^1[3,4,5,7,8]{1}\d{9}$/", $user_name) and 11 === strlen($user_name) )
+            {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return AWS_APP::lang()->_t('手机号格式输入错误');
+        }
     }
 
     public function get_users_list($where, $limit = 10, $attrib = false, $exclude_self = true, $orderby = 'uid DESC')

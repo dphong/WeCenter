@@ -30,14 +30,14 @@
 //require_once 'Zend/Validate/Ip.php';
 
 /**
- * Please note there are two standalone test scripts for testing IDN characters due to problems
+ * Please note there are two standalone main scripts for testing IDN characters due to problems
  * with file encoding.
  *
  * The first is tests/Zend/Validate/HostnameTestStandalone.php which is designed to be run on
  * the command line.
  *
  * The second is tests/Zend/Validate/HostnameTestForm.php which is designed to be run via HTML
- * to allow users to test entering UTF-8 characters in a form.
+ * to allow users to main entering UTF-8 characters in a form.
  *
  * @category   Zend
  * @package    Zend_Validate

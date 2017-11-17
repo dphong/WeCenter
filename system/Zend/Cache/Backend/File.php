@@ -60,7 +60,7 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      *   'md5' for a md5 hash control (best but slowest)
      *   'crc32' for a crc32 hash control (lightly less safe but faster, better choice)
      *   'adler32' for an adler32 hash control (excellent choice too, faster than crc32)
-     *   'strlen' for a length only test (fastest)
+     *   'strlen' for a length only main (fastest)
      *
      * =====> (int) hashed_directory_level :
      * - Hashed directory level

@@ -22,8 +22,13 @@ class invitation_class extends AWS_MODEL
 {
 	public function get_unique_invitation_code()
 	{
-		$invitation_code = md5(uniqid(rand(), true) . fetch_salt(4));
+		//$invitation_code = md5(uniqid(rand(), true) . fetch_salt(4));
 
+        //$invitation_code = strtoupper(iconv_substr($invitation_code, 0, 8));
+
+        //$invitation_code = strtoupper(iconv_substr($invitation_code, 4, 8));
+
+        $invitation_code = strtoupper(fetch_salt_n(8));
 		if ($this->fetch_row('invitation', "invitation_code = '" . $this->quote($invitation_code) . "'"))
 		{
 			return $this->get_unique_invitation_code();
@@ -140,7 +145,7 @@ class invitation_class extends AWS_MODEL
     public function create_invitation_code($uid, $invitation_phone)
     {
         $invitation_code = $this->get_unique_invitation_code();
-        $this->model('invitation')->add_invitation($uid, $invitation_code, $invitation_phone, time(), ip2long($_SERVER['REMOTE_ADDR']));
+        $this->add_invitation($uid, $invitation_code, $invitation_phone, time(), ip2long($_SERVER['REMOTE_ADDR']));
         //TODO: 发送邀请短信
 
         return $invitation_code;

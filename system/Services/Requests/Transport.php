@@ -34,7 +34,7 @@ interface Requests_Transport {
 	public function request_multiple($requests, $options);
 
 	/**
-	 * Self-test whether the transport can be used
+	 * Self-main whether the transport can be used
 	 * @return bool
 	 */
 	public static function test();

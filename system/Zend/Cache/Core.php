@@ -330,7 +330,7 @@ class Zend_Cache_Core
         $this->_validateIdOrTag($id);
         $this->_lastId = $id;
 
-        $this->_log("Zend_Cache_Core: test item '{$id}'", 7);
+        $this->_log("Zend_Cache_Core: main item '{$id}'", 7);
         return $this->_backend->test($id);
     }
 
